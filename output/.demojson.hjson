@@ -1,0 +1,19 @@
+# This is an .hjson just for comments sake.
+# Otherwise this will export json
+
+# supported types: Text, TeX, Comment
+
+{
+  "created_at": "",
+  "query": [
+    {
+      "type": "Text"
+    },
+    {
+      "type": "TeX"
+    }
+  ],
+  "answer": [
+    
+  ]
+}

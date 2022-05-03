@@ -1,0 +1,36 @@
+{
+  "created_at": "",
+  "query": [
+    {
+      "type": "Text",
+      "data": "Find the vector  "
+    },
+    {
+      "type": "TeX",
+      "data": " \\mathbf{w} "
+    },
+    {
+      "type": "Text",
+      "data": " of length "
+    },
+    {
+      "type": "TeX",
+      "data": " 4 "
+    },
+    {
+      "type": "Text",
+      "data": " in the direction of  "
+    },
+    {
+      "type": "TeX",
+      "data": " \\mathbf{v} = 7 \\mathbf{i} + 4 \\mathbf{j} \\text{.}  "
+    }
+    # {
+    #   "type": "Comment",
+    #   "data": "(Give your answer using component form or standard basis vectors. Express numbers in exact form. Use symbolic notation and fractions where needed.)"
+    # }
+  ],
+  "answers": [
+    
+  ]
+}

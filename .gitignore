@@ -1,0 +1,9 @@
+node_modules
+**/node_modules
+.env
+
+question-scraper/input/**
+!question-scraper/input/example.mhtml
+
+question-scraper/output/**
+!question-scraper/output/.demojson.hjson

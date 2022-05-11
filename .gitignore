@@ -6,4 +6,4 @@ question-scraper/input/**
 !question-scraper/input/example.mhtml
 
 question-scraper/output/**
-!question-scraper/output/.demojson.hjson
+!question-scraper/output/example.hjson

@@ -1,8 +1,9 @@
 // Parser for generic FRQs from Achieve
 
+import type { FileData } from '.';
 import { Data, Results } from './types';
 
-function FRQParser(document: Document, filename: string): Results {
+function FRQParser(document: Document, fileData: FileData): Results {
   const wrapperArticle = document.getElementsByClassName(
     'parent-module-container'
   )[0];
@@ -185,7 +186,7 @@ function FRQParser(document: Document, filename: string): Results {
   }
 
   return {
-    name: filename,
+    name: fileData.filename,
     data: data,
   };
 }

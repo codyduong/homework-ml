@@ -9,42 +9,90 @@ async function parseMHTML(dirname: string, filename: string) {
     encoding: 'utf-8',
   });
   const decodedFile = quotedPrintableDecode(fileData.replace(/&nbsp;/g, ' '));
-  const htmlFirst = decodedFile.match(/<!DOCTYPE html>/);
+  const htmlStart = decodedFile.match(/<!DOCTYPE html>/);
   const htmlEnd = decodedFile.match(/<\/html>/);
-  if (!htmlFirst || !htmlEnd) {
-    console.log('No HTML found');
+  if (!htmlStart || !htmlEnd) {
+    console.log('Warning: No HTML found');
     return;
   }
-  const HTMLraw = decodedFile.slice(htmlFirst.index, htmlEnd.index);
+  const HTMLraw = decodedFile.slice(htmlStart.index, htmlEnd.index);
+
+  // Get the url to determine which parser to use.
+  const contentLocationStart = decodedFile.match(/Content-Location/);
+
+  // if (!contentLocationStart?.groups?.[0]) {
+  //   console.log('Warning: No content-location found');
+  //   //return;
+  // }
 
   const dom = new JSDOM(HTMLraw);
   const document = dom.window.document;
-  return useParser(document, filename);
+  return useParser(document, {
+    filename,
+    'content-location': '',
+  });
 }
 
-async function readFiles(inputDirname: string, outputDirname: string) {
-  const directory = fs.readdirSync(path.resolve(inputDirname));
+async function parseDirectory(
+  files: string[],
+  inputPath: string,
+  outputPath: string
+): Promise<any> {
   const results: any[] = [];
-  for await (const file of directory) {
+
+  for await (const file of files) {
     process.stdout.write(`Parsing ${file.padEnd(70)}\r`);
-    try {
-      results.push(await parseMHTML(inputDirname, file));
-    } catch (e) {
-      if (e instanceof Error) {
-        continue;
-      } else {
-        throw e;
-      }
+
+    const filepath = path.resolve(`${inputPath}/${file}`);
+    const lstat = fs.lstatSync(filepath);
+
+    // If a directory, instead add it to parsing tree via recursion
+    if (lstat.isDirectory()) {
+      parseDirectory(
+        fs.readdirSync(filepath),
+        filepath,
+        path.resolve(`${outputPath}/${file}/`)
+      );
+      continue;
     }
+
+    // If not a mhtml file instead just copy the file
+    if (path.extname(filepath) !== '.mhtml') {
+      fs.copyFileSync(filepath, path.resolve(`${outputPath}/${file}`));
+    }
+
+    results.push(await parseMHTML(inputPath, file));
   }
   process.stdout.write('\r'.padStart(100));
 
-  fs.writeFileSync(
-    path.resolve(`${outputDirname}output.json`),
-    JSON.stringify(results, undefined, 4)
-  );
+  function writeToFile() {
+    results.length > 0 &&
+      fs.writeFileSync(
+        path.resolve(`${outputPath}/results.json`),
+        JSON.stringify(results, undefined, 4)
+      );
+  }
+
+  try {
+    writeToFile();
+  } catch (e) {
+    const error = e as any;
+    // syscall: open ; code: ENOENT
+    if (error.errno == -4058) {
+      fs.mkdirSync(path.resolve(outputPath), { recursive: true });
+    }
+  } finally {
+    writeToFile();
+  }
 }
 
-(async () => {
-  await readFiles('./input/', './output/');
-})();
+function readFiles(inputDirname: string, outputDirname: string): void {
+  const directory = fs.readdirSync(path.resolve(inputDirname));
+
+  // remove example.mhtml
+  directory.splice(directory.indexOf('example.mhtml'), 1);
+
+  parseDirectory(directory, inputDirname, outputDirname);
+}
+
+readFiles('./input/', './output/');

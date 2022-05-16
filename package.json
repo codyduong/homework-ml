@@ -4,6 +4,10 @@
   "license": "MIT",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "scrape": "yarn workspace question-scraper start",
+    "generate": "yarn workspace question-generator start"
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",
@@ -15,6 +19,7 @@
     "typescript": "^4.6.4"
   },
   "workspaces": [
-    "question-scraper"
+    "question-scraper",
+    "question-generator"
   ]
 }

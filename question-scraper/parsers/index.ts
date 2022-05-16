@@ -1,5 +1,5 @@
 import FRQ from './Achieve.FRQ.MC';
-import { Results } from './types';
+import { Results } from './.types';
 
 const PARSERS = [FRQ];
 

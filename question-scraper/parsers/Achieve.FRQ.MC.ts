@@ -1,7 +1,30 @@
 // Parser for generic FRQs from Achieve
 
 import type { FileData } from '.';
-import { Data, Results } from './types';
+import { Data, Results } from './.types';
+
+function _findAnswer(root: Element | null) {
+  const rootBlock = root?.getElementsByClassName('mq-root-block')[0];
+
+  const blocks = rootBlock?.children ?? [];
+
+  let stringBuffer = '';
+
+  for (const block of blocks) {
+    const className = block.className.split(' ');
+
+    if (className[0] === 'mq-fraction') {
+      const [numerator, denominator] = block.children;
+
+      stringBuffer += `(${numerator.textContent})/(${denominator.textContent})`;
+      continue;
+    }
+
+    stringBuffer += block.textContent;
+  }
+
+  return stringBuffer;
+}
 
 function FRQParser(document: Document, fileData: FileData): Results {
   const wrapperArticle = document.getElementsByClassName(
@@ -82,7 +105,12 @@ function FRQParser(document: Document, fileData: FileData): Results {
         const label = div.querySelector('label');
         const span = div?.querySelector('span');
         const image = div?.querySelector('img');
-        const answer = label?.textContent?.trim() || span?.textContent?.trim();
+        const answer = label?.textContent?.trim();
+
+        // find answer via another method:
+        if (!answer) {
+          _findAnswer(span);
+        }
 
         if (input?.checked) {
           answer && prompt.answers.push(answer);
@@ -170,7 +198,7 @@ function FRQParser(document: Document, fileData: FileData): Results {
       // Sometimes not in textContent
       const answerFinal = !answer
         ? article.getElementsByTagName('input').item(0)?.value
-        : answer;
+        : _findAnswer(article);
 
       // Unable to find answer, move to another parser
       if (!answerFinal) {

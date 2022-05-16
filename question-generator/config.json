@@ -1,0 +1,26 @@
+{
+  "options": {
+    "exportErrors": true
+  },
+  "runs": [
+    {
+      "function": "Calculus_III.GenerateVectorInDirectionOfLength",
+      "parameters": [100, {
+        "dimensions": 2,
+        "plaintext": true,
+        "vectorNotation": "unitVector"
+      }],
+      "disabled": true
+    },
+    {
+      "function": "GenerateAllPermutations",
+      "parameters": ["Calculus_III.GenerateVectorInDirectionOfLength", [25, {
+        "dimensions": [2, 3],
+        "plaintext": [true, false],
+        "vectorNotation": ["orderedSet", "unitVector"],
+        "decimalOrFraction": ["decimal", "fraction", "whole"],
+        "vectorLabels": [null, "all"]
+      }]]
+    }
+  ]
+}

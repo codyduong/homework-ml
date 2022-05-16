@@ -2,7 +2,7 @@ import fs from 'fs';
 import { JSDOM } from 'jsdom';
 import path from 'path';
 import { useParser } from './parsers';
-import { quotedPrintableDecode } from './parsers/util';
+import { quotedPrintableDecode } from './parsers/.util';
 
 async function parseMHTML(dirname: string, filename: string) {
   const fileData = fs.readFileSync(path.resolve(`${dirname}/${filename}`), {
@@ -12,7 +12,7 @@ async function parseMHTML(dirname: string, filename: string) {
   const htmlStart = decodedFile.match(/<!DOCTYPE html>/);
   const htmlEnd = decodedFile.match(/<\/html>/);
   if (!htmlStart || !htmlEnd) {
-    console.log('Warning: No HTML found');
+    console.log(`Warning: No HTML found in ${filename}`);
     return;
   }
   const HTMLraw = decodedFile.slice(htmlStart.index, htmlEnd.index);
@@ -41,7 +41,7 @@ async function parseDirectory(
   const results: any[] = [];
 
   for await (const file of files) {
-    process.stdout.write(`Parsing ${file.padEnd(70)}\r`);
+    console.log(`Parsing ${file.padEnd(70)}`);
 
     const filepath = path.resolve(`${inputPath}/${file}`);
     const lstat = fs.lstatSync(filepath);
@@ -59,11 +59,12 @@ async function parseDirectory(
     // If not a mhtml file instead just copy the file
     if (path.extname(filepath) !== '.mhtml') {
       fs.copyFileSync(filepath, path.resolve(`${outputPath}/${file}`));
+      continue;
     }
 
-    results.push(await parseMHTML(inputPath, file));
+    const parsedFile = await parseMHTML(inputPath, file);
+    parsedFile && results.push(parsedFile);
   }
-  process.stdout.write('\r'.padStart(100));
 
   function writeToFile() {
     results.length > 0 &&
@@ -92,7 +93,10 @@ function readFiles(inputDirname: string, outputDirname: string): void {
   // remove example.mhtml
   directory.splice(directory.indexOf('example.mhtml'), 1);
 
+  //remove git
+  directory.splice(directory.indexOf('.git'), 1);
+
   parseDirectory(directory, inputDirname, outputDirname);
 }
 
-readFiles('./input/', './output/');
+readFiles(__dirname + '/input/', __dirname + '/output/');

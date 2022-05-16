@@ -1,6 +1,6 @@
 // Contains the question generator for various CalcIII questions
-import { MATHEMATICAL_BOLD, Util } from './.util';
-import type { AlphaStringSingular, Data, Result } from './.types';
+import { MATHEMATICAL_BOLD, Util } from '../.util';
+import type { AlphaStringSingular, Data, Result } from '../.types';
 import type { MathNode } from 'mathjs';
 import * as math from 'mathjs';
 
@@ -22,10 +22,10 @@ export interface GenerateVectorOptions {
   catchErrors?: boolean; //Default is false
   min?: number; //default is -1000
   max?: number; //default is 1000
-  displayMode?: 'toString' | 'toHTML' | 'toTex'; //Default is toString
+  displayMode?: 'toString' | 'toTex'; //Default is toString, 'toHTML' is not supported since json can't escape out of box
 }
 
-function GenerateVectorInDirectionOfLength(
+export function GenerateVectorInDirectionOfLength(
   quantity = 100,
   options?: GenerateVectorOptions
 ): Result {
@@ -111,7 +111,7 @@ function GenerateVectorInDirectionOfLength(
       const content2 = `${content2Equation1}`;
 
       // Get the unit magnitude
-      const _uVecMag = `sqrt((${x[displayMode]()})^2 + (${y[displayMode]()})^2 ${z ? '+(' + z[displayMode]() + ')^2' : ''})`;
+      const _uVecMag = `sqrt((${x.toString()})^2 + (${y.toString()})^2 ${z ? '+(' + z.toString() + ')^2' : ''})`;
 
       const [newX, newY, newZ] = [
         math
@@ -157,7 +157,3 @@ function GenerateVectorInDirectionOfLength(
     };
   }
 }
-
-export const Calculus_III = {
-  GenerateVectorInDirectionOfLength,
-};

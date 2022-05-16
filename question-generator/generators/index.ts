@@ -1,6 +1,6 @@
 import { nav } from '@codyduong/nav';
 import { Result } from './.types';
-import { Calculus_III } from './Achieve.CalcIII';
+import Calculus_III from './Calculus_III';
 
 export { Calculus_III };
 

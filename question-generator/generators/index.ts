@@ -1,8 +1,8 @@
 import { nav } from '@codyduong/nav';
+import { Get, Split } from 'type-fest';
+import type { FunctionStringUnionWithoutPermutations } from '../configuration/configuration.type';
 import { Result } from './.types';
 import Calculus_III from './Calculus_III';
-
-export { Calculus_III };
 
 // https://stackoverflow.com/a/57015870/17954209
 function permutateBetweenArrays([
@@ -18,15 +18,29 @@ function permutateBetweenArrays([
   return permutateBetweenArrays([combined, ...tailTail]);
 }
 
-function GenerateAllPermutations(
-  functionPath: string,
-  options?: [number, Record<string, Array<any>>],
+type ParametersWithoutPermutations<
+  fPath extends FunctionStringUnionWithoutPermutations
+> = Parameters<Get<typeof Generators, Split<fPath, '.'>>>;
+
+type GenerateAllPermutationsOptions<
+  P extends FunctionStringUnionWithoutPermutations,
+  T extends ParametersWithoutPermutations<P> = ParametersWithoutPermutations<P>,
+  U extends { [I in keyof T]-?: T[I] } = { [I in keyof T]-?: T[I] }
+> = U extends [infer First, infer Second]
+  ? [First, { [K in keyof Second]: Array<Second[K]> }]
+  : never;
+
+function GenerateAllPermutations<
+  P extends FunctionStringUnionWithoutPermutations
+>(
+  functionPath: P,
+  options?: GenerateAllPermutationsOptions<P>,
   disabled?: boolean
 ): Result[] {
   const results: Result[] = [];
   // Prevent some nonsense with infinite recursion
   const runnerFunction = nav<any, any, any>(
-    GENERATORS,
+    Generators,
     functionPath.split('.')
   );
   if (disabled) {
@@ -51,9 +65,10 @@ function GenerateAllPermutations(
   }
 
   const arrayOfArrays: Array<Array<any>> = [];
-  Object.entries(options[1]).forEach((v) => {
+
+  Object.entries(options[1] ?? {}).forEach((v) => {
     const currentSubArray = [];
-    for (const permutation of v[1]) {
+    for (const permutation of v[1] as any[]) {
       currentSubArray.push({ [v[0]]: permutation });
     }
     arrayOfArrays.push(currentSubArray);
@@ -66,15 +81,13 @@ function GenerateAllPermutations(
   return results;
 }
 
-const GENERATORS: {
-  [key: string]: { [key: string]: (q?: number, o?: any) => Result };
-} = {
+const Generators = {
   Calculus_III,
-};
+} as const;
 
-const GENERATORSWithPermutations = {
-  ...GENERATORS,
+const GeneratorsWithPermutator = {
+  ...Generators,
   GenerateAllPermutations,
-};
+} as const;
 
-export default GENERATORSWithPermutations;
+export default GeneratorsWithPermutator;

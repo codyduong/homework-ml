@@ -4,6 +4,7 @@ node_modules
 
 question-scraper/input/**
 !question-scraper/input/example.mhtml
-
 question-scraper/output/**
 !question-scraper/output/example.hjson
+
+question-generator/result.json

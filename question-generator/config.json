@@ -1,4 +1,5 @@
 {
+  "$schema": "./config.schema.json",
   "options": {
     "exportErrors": true
   },
@@ -19,7 +20,7 @@
         "plaintext": [true, false],
         "vectorNotation": ["orderedSet", "unitVector"],
         "decimalOrFraction": ["decimal", "fraction", "whole"],
-        "vectorLabels": [null, "all"]
+        "vectorLabels": ["null", "all"]
       }]]
     }
   ]

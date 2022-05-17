@@ -18,7 +18,8 @@ export interface GenerateVectorOptions {
   plaintext?: boolean; // Default is true; If true, restricts set of chars to what can be input on keyboard easily.
   vectorNotation?: 'orderedSet' | 'unitVector'; //Default is unitVecotr; Matrix not supported
   decimalOrFraction?: 'decimal' | 'fraction' | 'whole'; //Default is whole; Choose whether we use ints/floats/et. cetera
-  vectorLabels?: [AlphaStringSingular, AlphaStringSingular] | 'all' | null; //Default is [w, v], if all, will select all valid characters
+  // eslint-disable-next-line prettier/prettier
+  vectorLabels?: [AlphaStringSingular, AlphaStringSingular] | 'all' | 'null' | null; //Default is [w, v], if all, will select all valid characters
   catchErrors?: boolean; //Default is false
   min?: number; //default is -1000
   max?: number; //default is 1000
@@ -59,16 +60,18 @@ export function GenerateVectorInDirectionOfLength(
         ? 'abcdefghlmnopqrstuvwxyzABCDEFGHLMNOPQRSTUVWXYZ'
         : undefined;
 
-    //get a random alpha if needed
-    const [letter1, letter2] =
-      typeof vectorLabels === 'object' && vectorLabels
-        ? vectorLabels
-        : ([
-            getRandomAlpha(availableLetters),
-            getRandomAlpha(availableLetters),
-          ] as const);
-
     for (let i = quantity; i--; ) {
+      //get a random alpha if needed
+      const [letter1, letter2] =
+        typeof vectorLabels === 'object' && vectorLabels
+          ? vectorLabels
+          : vectorLabels == 'null'
+          ? (['w', 'v'] as const)
+          : ([
+              getRandomAlpha(availableLetters),
+              getRandomAlpha(availableLetters),
+            ] as const);
+
       const values: MathNode[] = [];
       for (let dims = Number(dimensions); dims--; ) {
         values.push(

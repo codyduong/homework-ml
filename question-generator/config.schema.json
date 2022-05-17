@@ -1,0 +1,500 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "definitions": {
+        "GenerateVectorOptions": {
+            "additionalProperties": false,
+            "properties": {
+                "catchErrors": {
+                    "type": "boolean"
+                },
+                "decimalOrFraction": {
+                    "enum": [
+                        "decimal",
+                        "fraction",
+                        "whole"
+                    ],
+                    "type": "string"
+                },
+                "dimensions": {
+                    "enum": [
+                        2,
+                        "2",
+                        "3",
+                        3
+                    ]
+                },
+                "displayMode": {
+                    "enum": [
+                        "toString",
+                        "toTex"
+                    ],
+                    "type": "string"
+                },
+                "max": {
+                    "type": "number"
+                },
+                "min": {
+                    "type": "number"
+                },
+                "plaintext": {
+                    "type": "boolean"
+                },
+                "vectorLabels": {
+                    "anyOf": [
+                        {
+                            "items": [
+                                {
+                                    "enum": [
+                                        "A",
+                                        "B",
+                                        "C",
+                                        "D",
+                                        "E",
+                                        "F",
+                                        "G",
+                                        "H",
+                                        "I",
+                                        "J",
+                                        "K",
+                                        "L",
+                                        "M",
+                                        "N",
+                                        "O",
+                                        "P",
+                                        "Q",
+                                        "R",
+                                        "S",
+                                        "T",
+                                        "U",
+                                        "V",
+                                        "W",
+                                        "X",
+                                        "Y",
+                                        "Z",
+                                        "a",
+                                        "b",
+                                        "c",
+                                        "d",
+                                        "e",
+                                        "f",
+                                        "g",
+                                        "h",
+                                        "i",
+                                        "j",
+                                        "k",
+                                        "l",
+                                        "m",
+                                        "n",
+                                        "o",
+                                        "p",
+                                        "q",
+                                        "r",
+                                        "s",
+                                        "t",
+                                        "u",
+                                        "v",
+                                        "w",
+                                        "x",
+                                        "y",
+                                        "z"
+                                    ],
+                                    "type": "string"
+                                },
+                                {
+                                    "enum": [
+                                        "A",
+                                        "B",
+                                        "C",
+                                        "D",
+                                        "E",
+                                        "F",
+                                        "G",
+                                        "H",
+                                        "I",
+                                        "J",
+                                        "K",
+                                        "L",
+                                        "M",
+                                        "N",
+                                        "O",
+                                        "P",
+                                        "Q",
+                                        "R",
+                                        "S",
+                                        "T",
+                                        "U",
+                                        "V",
+                                        "W",
+                                        "X",
+                                        "Y",
+                                        "Z",
+                                        "a",
+                                        "b",
+                                        "c",
+                                        "d",
+                                        "e",
+                                        "f",
+                                        "g",
+                                        "h",
+                                        "i",
+                                        "j",
+                                        "k",
+                                        "l",
+                                        "m",
+                                        "n",
+                                        "o",
+                                        "p",
+                                        "q",
+                                        "r",
+                                        "s",
+                                        "t",
+                                        "u",
+                                        "v",
+                                        "w",
+                                        "x",
+                                        "y",
+                                        "z"
+                                    ],
+                                    "type": "string"
+                                }
+                            ],
+                            "maxItems": 2,
+                            "minItems": 2,
+                            "type": "array"
+                        },
+                        {
+                            "enum": [
+                                "all",
+                                "null"
+                            ],
+                            "type": "string"
+                        }
+                    ]
+                },
+                "vectorNotation": {
+                    "enum": [
+                        "orderedSet",
+                        "unitVector"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Parameters": {
+            "items": [
+                {
+                    "enum": [
+                        "Calculus_III.GenerateVectorInDirectionOfLength"
+                    ],
+                    "type": "string"
+                },
+                {
+                    "items": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "$ref": "#/definitions/{dimensions?:(2|\"2\"|\"3\"|3)[];plaintext?:boolean[];vectorNotation?:(\"orderedSet\"|\"unitVector\")[];decimalOrFraction?:(\"decimal\"|\"fraction\"|\"whole\")[];vectorLabels?:(\"all\"|\"null\"|[AlphaStringSingular,AlphaStringSingular])[];catchErrors?:boolean[];min?:number[];max?:number[];displayMode?:(\"toString\"|\"toTex\")[];}"
+                        }
+                    ],
+                    "maxItems": 2,
+                    "minItems": 2,
+                    "type": "array"
+                },
+                {
+                    "type": "boolean"
+                }
+            ],
+            "maxItems": 3,
+            "minItems": 1,
+            "type": "array"
+        },
+        "Parameters_1": {
+            "items": [
+                {
+                    "type": "number"
+                },
+                {
+                    "$ref": "#/definitions/GenerateVectorOptions"
+                }
+            ],
+            "maxItems": 2,
+            "minItems": 0,
+            "type": "array"
+        },
+        "key": {
+            "enum": [
+                "GenerateAllPermutations"
+            ],
+            "type": "string"
+        },
+        "key_1": {
+            "enum": [
+                "Calculus_III.GenerateVectorInDirectionOfLength"
+            ],
+            "type": "string"
+        },
+        "{dimensions?:(2|\"2\"|\"3\"|3)[];plaintext?:boolean[];vectorNotation?:(\"orderedSet\"|\"unitVector\")[];decimalOrFraction?:(\"decimal\"|\"fraction\"|\"whole\")[];vectorLabels?:(\"all\"|\"null\"|[AlphaStringSingular,AlphaStringSingular])[];catchErrors?:boolean[];min?:number[];max?:number[];displayMode?:(\"toString\"|\"toTex\")[];}": {
+            "additionalProperties": false,
+            "properties": {
+                "catchErrors": {
+                    "items": {
+                        "type": "boolean"
+                    },
+                    "type": "array"
+                },
+                "decimalOrFraction": {
+                    "items": {
+                        "enum": [
+                            "decimal",
+                            "fraction",
+                            "whole"
+                        ],
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "dimensions": {
+                    "items": {
+                        "enum": [
+                            2,
+                            "2",
+                            "3",
+                            3
+                        ]
+                    },
+                    "type": "array"
+                },
+                "displayMode": {
+                    "items": {
+                        "enum": [
+                            "toString",
+                            "toTex"
+                        ],
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "max": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                },
+                "min": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                },
+                "plaintext": {
+                    "items": {
+                        "type": "boolean"
+                    },
+                    "type": "array"
+                },
+                "vectorLabels": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "items": [
+                                    {
+                                        "enum": [
+                                            "A",
+                                            "B",
+                                            "C",
+                                            "D",
+                                            "E",
+                                            "F",
+                                            "G",
+                                            "H",
+                                            "I",
+                                            "J",
+                                            "K",
+                                            "L",
+                                            "M",
+                                            "N",
+                                            "O",
+                                            "P",
+                                            "Q",
+                                            "R",
+                                            "S",
+                                            "T",
+                                            "U",
+                                            "V",
+                                            "W",
+                                            "X",
+                                            "Y",
+                                            "Z",
+                                            "a",
+                                            "b",
+                                            "c",
+                                            "d",
+                                            "e",
+                                            "f",
+                                            "g",
+                                            "h",
+                                            "i",
+                                            "j",
+                                            "k",
+                                            "l",
+                                            "m",
+                                            "n",
+                                            "o",
+                                            "p",
+                                            "q",
+                                            "r",
+                                            "s",
+                                            "t",
+                                            "u",
+                                            "v",
+                                            "w",
+                                            "x",
+                                            "y",
+                                            "z"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    {
+                                        "enum": [
+                                            "A",
+                                            "B",
+                                            "C",
+                                            "D",
+                                            "E",
+                                            "F",
+                                            "G",
+                                            "H",
+                                            "I",
+                                            "J",
+                                            "K",
+                                            "L",
+                                            "M",
+                                            "N",
+                                            "O",
+                                            "P",
+                                            "Q",
+                                            "R",
+                                            "S",
+                                            "T",
+                                            "U",
+                                            "V",
+                                            "W",
+                                            "X",
+                                            "Y",
+                                            "Z",
+                                            "a",
+                                            "b",
+                                            "c",
+                                            "d",
+                                            "e",
+                                            "f",
+                                            "g",
+                                            "h",
+                                            "i",
+                                            "j",
+                                            "k",
+                                            "l",
+                                            "m",
+                                            "n",
+                                            "o",
+                                            "p",
+                                            "q",
+                                            "r",
+                                            "s",
+                                            "t",
+                                            "u",
+                                            "v",
+                                            "w",
+                                            "x",
+                                            "y",
+                                            "z"
+                                        ],
+                                        "type": "string"
+                                    }
+                                ],
+                                "maxItems": 2,
+                                "minItems": 2,
+                                "type": "array"
+                            },
+                            {
+                                "enum": [
+                                    "all",
+                                    "null"
+                                ],
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "vectorNotation": {
+                    "items": {
+                        "enum": [
+                            "orderedSet",
+                            "unitVector"
+                        ],
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "properties": {
+        "$schema": {
+            "type": "string"
+        },
+        "options": {
+            "additionalProperties": false,
+            "properties": {
+                "exportErrors": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "runs": {
+            "items": {
+                "anyOf": [
+                    {
+                        "additionalProperties": false,
+                        "properties": {
+                            "disabled": {
+                                "type": "boolean"
+                            },
+                            "function": {
+                                "$ref": "#/definitions/key"
+                            },
+                            "parameters": {
+                                "$ref": "#/definitions/Parameters"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "additionalProperties": false,
+                        "properties": {
+                            "disabled": {
+                                "type": "boolean"
+                            },
+                            "function": {
+                                "$ref": "#/definitions/key_1"
+                            },
+                            "parameters": {
+                                "$ref": "#/definitions/Parameters_1"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "type": "array"
+        }
+    },
+    "type": "object"
+}
+

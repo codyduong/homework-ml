@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "scrape": "yarn workspace question-scraper start",
-    "generate": "yarn workspace question-generator start"
+    "generate": "yarn workspace question-generator start",
+    "ci": "yarn install --frozen-lockfile"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.21.0",

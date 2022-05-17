@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "start": "ts-node index.ts",
-    "generate-schema": "typescript-json-schema ./configuration/configuration.type.ts -o ./config.schema.json Configuration --esModuleInterop --noExtraProps --aliasRefs"
+    "generate-schema": "typescript-json-schema ./src/configuration/configuration.type.ts Configuration -o ./config.schema.json --defaultProps --esModuleInterop --noExtraProps --refs --aliasRefs"
   },
   "devDependencies": {
     "@types/jsdom": "^16.2.14",

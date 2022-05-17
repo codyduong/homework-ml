@@ -1,20 +1,15 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "additionalProperties": false,
+    "defaultProperties": [],
     "definitions": {
         "GenerateVectorOptions": {
             "additionalProperties": false,
+            "defaultProperties": [],
+            "description": "ACHIEVE 0, QUESTION 1",
             "properties": {
                 "catchErrors": {
                     "type": "boolean"
-                },
-                "decimalOrFraction": {
-                    "enum": [
-                        "decimal",
-                        "fraction",
-                        "whole"
-                    ],
-                    "type": "string"
                 },
                 "dimensions": {
                     "enum": [
@@ -36,6 +31,14 @@
                 },
                 "min": {
                     "type": "number"
+                },
+                "numberType": {
+                    "enum": [
+                        "decimal",
+                        "fraction",
+                        "whole"
+                    ],
+                    "type": "string"
                 },
                 "plaintext": {
                     "type": "boolean"
@@ -186,22 +189,40 @@
             "items": [
                 {
                     "enum": [
+                        "Calculus_III.GenerateTraceOfPlaneQuestion",
                         "Calculus_III.GenerateVectorInDirectionOfLength"
                     ],
                     "type": "string"
                 },
                 {
-                    "items": [
+                    "anyOf": [
                         {
-                            "type": "number"
+                            "items": [
+                                {
+                                    "type": "number"
+                                },
+                                {
+                                    "$ref": "#/definitions/{dimensions?:(2|\"2\"|\"3\"|3)[];plaintext?:boolean[];vectorNotation?:(\"orderedSet\"|\"unitVector\")[];numberType?:(\"decimal\"|\"fraction\"|\"whole\")[];vectorLabels?:(\"all\"|\"null\"|[AlphaStringSingular,AlphaStringSingular])[];catchErrors?:boolean[];min?:number[];max?:number[];displayMode?:(\"toString\"|\"toTex\")[];}"
+                                }
+                            ],
+                            "maxItems": 2,
+                            "minItems": 2,
+                            "type": "array"
                         },
                         {
-                            "$ref": "#/definitions/{dimensions?:(2|\"2\"|\"3\"|3)[];plaintext?:boolean[];vectorNotation?:(\"orderedSet\"|\"unitVector\")[];decimalOrFraction?:(\"decimal\"|\"fraction\"|\"whole\")[];vectorLabels?:(\"all\"|\"null\"|[AlphaStringSingular,AlphaStringSingular])[];catchErrors?:boolean[];min?:number[];max?:number[];displayMode?:(\"toString\"|\"toTex\")[];}"
+                            "items": [
+                                {
+                                    "type": "number"
+                                },
+                                {
+                                    "$ref": "#/definitions/{plane?:(\"xy\"|\"xz\"|\"yx\"|\"yz\"|\"zx\"|\"zy\")[];min?:number[];max?:number[];numberType?:(\"decimal\"|\"fraction\"|\"whole\")[];dimensions?:(2|\"2\"|\"3\"|3)[];plaintext?:boolean[];displayMode?:(\"toString\"|\"toTex\")[];}"
+                                }
+                            ],
+                            "maxItems": 2,
+                            "minItems": 2,
+                            "type": "array"
                         }
-                    ],
-                    "maxItems": 2,
-                    "minItems": 2,
-                    "type": "array"
+                    ]
                 },
                 {
                     "type": "boolean"
@@ -224,6 +245,67 @@
             "minItems": 0,
             "type": "array"
         },
+        "Parameters_2": {
+            "items": [
+                {
+                    "type": "number"
+                },
+                {
+                    "additionalProperties": false,
+                    "defaultProperties": [],
+                    "description": "ACHIEVE 0, QUESTION 15",
+                    "properties": {
+                        "dimensions": {
+                            "enum": [
+                                2,
+                                "2",
+                                "3",
+                                3
+                            ]
+                        },
+                        "displayMode": {
+                            "enum": [
+                                "toString",
+                                "toTex"
+                            ],
+                            "type": "string"
+                        },
+                        "max": {
+                            "type": "number"
+                        },
+                        "min": {
+                            "type": "number"
+                        },
+                        "numberType": {
+                            "enum": [
+                                "decimal",
+                                "fraction",
+                                "whole"
+                            ],
+                            "type": "string"
+                        },
+                        "plaintext": {
+                            "type": "boolean"
+                        },
+                        "plane": {
+                            "enum": [
+                                "xy",
+                                "xz",
+                                "yx",
+                                "yz",
+                                "zx",
+                                "zy"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            ],
+            "maxItems": 2,
+            "minItems": 0,
+            "type": "array"
+        },
         "key": {
             "enum": [
                 "GenerateAllPermutations"
@@ -236,23 +318,19 @@
             ],
             "type": "string"
         },
-        "{dimensions?:(2|\"2\"|\"3\"|3)[];plaintext?:boolean[];vectorNotation?:(\"orderedSet\"|\"unitVector\")[];decimalOrFraction?:(\"decimal\"|\"fraction\"|\"whole\")[];vectorLabels?:(\"all\"|\"null\"|[AlphaStringSingular,AlphaStringSingular])[];catchErrors?:boolean[];min?:number[];max?:number[];displayMode?:(\"toString\"|\"toTex\")[];}": {
+        "key_2": {
+            "enum": [
+                "Calculus_III.GenerateTraceOfPlaneQuestion"
+            ],
+            "type": "string"
+        },
+        "{dimensions?:(2|\"2\"|\"3\"|3)[];plaintext?:boolean[];vectorNotation?:(\"orderedSet\"|\"unitVector\")[];numberType?:(\"decimal\"|\"fraction\"|\"whole\")[];vectorLabels?:(\"all\"|\"null\"|[AlphaStringSingular,AlphaStringSingular])[];catchErrors?:boolean[];min?:number[];max?:number[];displayMode?:(\"toString\"|\"toTex\")[];}": {
             "additionalProperties": false,
+            "defaultProperties": [],
             "properties": {
                 "catchErrors": {
                     "items": {
                         "type": "boolean"
-                    },
-                    "type": "array"
-                },
-                "decimalOrFraction": {
-                    "items": {
-                        "enum": [
-                            "decimal",
-                            "fraction",
-                            "whole"
-                        ],
-                        "type": "string"
                     },
                     "type": "array"
                 },
@@ -286,6 +364,17 @@
                 "min": {
                     "items": {
                         "type": "number"
+                    },
+                    "type": "array"
+                },
+                "numberType": {
+                    "items": {
+                        "enum": [
+                            "decimal",
+                            "fraction",
+                            "whole"
+                        ],
+                        "type": "string"
                     },
                     "type": "array"
                 },
@@ -442,6 +531,77 @@
                 }
             },
             "type": "object"
+        },
+        "{plane?:(\"xy\"|\"xz\"|\"yx\"|\"yz\"|\"zx\"|\"zy\")[];min?:number[];max?:number[];numberType?:(\"decimal\"|\"fraction\"|\"whole\")[];dimensions?:(2|\"2\"|\"3\"|3)[];plaintext?:boolean[];displayMode?:(\"toString\"|\"toTex\")[];}": {
+            "additionalProperties": false,
+            "defaultProperties": [],
+            "properties": {
+                "dimensions": {
+                    "items": {
+                        "enum": [
+                            2,
+                            "2",
+                            "3",
+                            3
+                        ]
+                    },
+                    "type": "array"
+                },
+                "displayMode": {
+                    "items": {
+                        "enum": [
+                            "toString",
+                            "toTex"
+                        ],
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "max": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                },
+                "min": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                },
+                "numberType": {
+                    "items": {
+                        "enum": [
+                            "decimal",
+                            "fraction",
+                            "whole"
+                        ],
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "plaintext": {
+                    "items": {
+                        "type": "boolean"
+                    },
+                    "type": "array"
+                },
+                "plane": {
+                    "items": {
+                        "enum": [
+                            "xy",
+                            "xz",
+                            "yx",
+                            "yz",
+                            "zx",
+                            "zy"
+                        ],
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
         }
     },
     "properties": {
@@ -450,6 +610,7 @@
         },
         "options": {
             "additionalProperties": false,
+            "defaultProperties": [],
             "properties": {
                 "exportErrors": {
                     "type": "boolean"
@@ -462,6 +623,7 @@
                 "anyOf": [
                     {
                         "additionalProperties": false,
+                        "defaultProperties": [],
                         "properties": {
                             "disabled": {
                                 "type": "boolean"
@@ -477,6 +639,7 @@
                     },
                     {
                         "additionalProperties": false,
+                        "defaultProperties": [],
                         "properties": {
                             "disabled": {
                                 "type": "boolean"
@@ -486,6 +649,22 @@
                             },
                             "parameters": {
                                 "$ref": "#/definitions/Parameters_1"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "additionalProperties": false,
+                        "defaultProperties": [],
+                        "properties": {
+                            "disabled": {
+                                "type": "boolean"
+                            },
+                            "function": {
+                                "$ref": "#/definitions/key_2"
+                            },
+                            "parameters": {
+                                "$ref": "#/definitions/Parameters_2"
                             }
                         },
                         "type": "object"

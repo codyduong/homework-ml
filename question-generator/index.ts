@@ -1,6 +1,6 @@
 import { writeFileSync } from 'fs';
 import path from 'path';
-import { parseConfiguration } from './configuration';
+import { parseConfiguration } from './src/configuration';
 
 const datas = parseConfiguration();
 

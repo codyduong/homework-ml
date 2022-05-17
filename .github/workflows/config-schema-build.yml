@@ -5,8 +5,8 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'question-generator/generators/index.ts'
-      - 'question-generator/generators/**/index.ts'
+      - 'question-generator/src/generators/index.ts'
+      - 'question-generator/src/generators/**/index.ts'
 
 jobs:
   build:
